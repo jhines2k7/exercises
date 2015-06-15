@@ -1,19 +1,25 @@
+/*global describe, it, before, beforeEach, after, afterEach, require*/
+
 var nativeSortCalled;
 var oldSort = Array.prototype.sort;
 Array.prototype.sort = function() {
+  'use strict';
+
   nativeSortCalled = true;
   return oldSort.apply(this, arguments);
 };
 
 var assert = require('assert');
 var sort = require('./');
+var sorted = [];
 
 describe('sort', function() {
+  'use strict';
 
   it('will sort an array', function() {
     var arr = [5, 1, 2, 4, 3];
     nativeSortCalled = false;
-    var sorted = sort(arr);
+    sorted = sort(arr);
     assert(!nativeSortCalled);
     assert.deepEqual(sorted, [1, 2, 3, 4, 5]);
   });
